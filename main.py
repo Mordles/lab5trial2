@@ -21,13 +21,13 @@ def delay_us(tus): # use microseconds to improve time resolution
  while time.time() < endTime:
   pass
 
-def loop(dir): # dir = rotation direction (cw or ccw)
+"""def loop(dir): # dir = rotation direction (cw or ccw)
  for i in range(512): # full revolution (8 cycles/rotation * 64 gear ratio)
   for halfstep in range(8): # 8 half-steps per cycle
    for pin in range(4):    # 4 pins that need to be energized
     GPIO.output(pins[pin], dir[halfstep][pin])
   delay_us(1000)
-
+"""
 def setup():
   ADC.setup(0x48)
 
@@ -44,7 +44,12 @@ setup()
 time.sleep(0.1)
 while (ADC.read(0) < 180):
   # move motor to zero
-  loop(ccw)
+  for i in range(512): # full revolution (8 cycles/rotation * 64 gear ratio)
+   for halfstep in range(8): # 8 half-steps per cycle
+    for pin in range(4):    # 4 pins that need to be energized
+     GPIO.output(pins[pin], ccw[halfstep][pin])
+    delay_us(1000)
+  
   print(ADC.read(0))
   ADC.write(ADC.read(0))
 GPIO.output(26, 0)
