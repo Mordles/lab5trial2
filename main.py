@@ -4,7 +4,7 @@ import PCF8591 as ADC
 import time
 import RPi.GPIO as GPIO
 
-ADC.setup[0x48]
+ADC.setup(0x48)
 
 GPIO.setmode(GPIO.BCM)
 pins = [18,21,22,23] # controller inputs: in1, in2, in3, in4
@@ -35,12 +35,12 @@ def loop(dir): # dir = rotation direction (cw or ccw)
     GPIO.output(pins[pin], dir[halfstep][pin])
   delay_us(1000)
 """
-""""
+"""
 From ADC code
 
 def setup():
   ADC.setup(0x48)
-""""
+"""
 
 """
 From ADC code
@@ -59,7 +59,7 @@ def destroy():
 GPIO.output(26, 1)
 
 time.sleep(0.1)
-while (ADC.read(0) < 180):
+while (ADC.read(0) < 200):
   # move motor to zero
   for i in range(512): # full revolution (8 cycles/rotation * 64 gear ratio)
    for halfstep in range(8): # 8 half-steps per cycle
@@ -90,7 +90,7 @@ def angle(degrees):
 angle(degrees) 
 """
 
-""""
+"""
 From Prof code
 
 def halfstep(dir):
