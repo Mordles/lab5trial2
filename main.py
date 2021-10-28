@@ -77,8 +77,8 @@ GPIO.cleanup()
 
 current_degree = 0
 
-while True:
-  try:
+try:
+  while True:
     n = input("Enter Degree: ")
     degrees = int(n)
     new_degrees = degrees - current_degree
@@ -94,8 +94,8 @@ while True:
     angle(new_degrees) 
     current_degree = degrees
 
-  except KeyboardInterrupt:
-    print('\nPeace')
+except KeyboardInterrupt:
+  print('\nPeace')
 
 GPIO.cleanup()
 
