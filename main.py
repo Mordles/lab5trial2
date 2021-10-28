@@ -77,17 +77,23 @@ GPIO.cleanup()
 
 current_degree = 0
 
-n = input("Enter Degree: ")
-degrees = int(n)
-def angle(degrees):
-  steps = (degrees*512)/360
-  for i in range(steps):
-    for halfstep in range(8):
-      for pin in range(4):
-        GPIO.output(pins[pin], ccw[halfstep][pin])
-      delay_us(1000)
+while True:
+  n = input("Enter Degree: ")
+  degrees = int(n)
+  new_degrees = degrees - current_degree
+  def angle(degrees):
+    steps = int((degrees*512)/360)
+    for i in range(steps):
+      for halfstep in range(8):
+        for pin in range(4):
+          GPIO.output(pins[pin], ccw[halfstep][pin])
+        delay_us(1000)
+    GPIO.cleanup()
 
-angle(degrees) 
+  angle(new_degrees) 
+  current_degree = new_degrees
+
+
 """
 
 """
